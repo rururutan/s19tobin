@@ -17,6 +17,16 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Work files
+*.ini
+*.ncb
+*.suo
+*.user
+*.dmp
+*.*~
+
+*.exe
+
 # =========================
 # Operating System Files
 # =========================

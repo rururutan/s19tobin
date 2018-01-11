@@ -5,7 +5,7 @@
  * @author Ru^3
  * @date 2012/10/26
  *
- * @todo AS68ˆÈŠO‚Ìo—Íƒtƒ@ƒCƒ‹‚ÍŒŸØ‚µ‚Ä‚È‚¢
+ * @todo AS68ä»¥å¤–ã®å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã¯æ¤œè¨¼ã—ã¦ãªã„
  *
  */
 
@@ -13,9 +13,7 @@
 
 int main(int argc, char *argv[])
 {
-	unsigned char c, num;
-	unsigned int data, count, address, loop = 0;
-	FILE *rfp, *wfp;
+	unsigned int data, count, address;
 
 	printf("Motorola s19 file to binary v0.01 (c)Ru^3\n\n");
 
@@ -24,21 +22,24 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	rfp = fopen(argv[1], "rb");
-	wfp = fopen(argv[2], "w+b");
+	FILE *rfp = fopen(argv[1], "rb");
+	FILE *wfp = fopen(argv[2], "w+b");
 
 	if (!rfp || !wfp) {
 		printf("file open error.\n");
+		if (rfp) fclose(rfp);
+		if (wfp) fclose(wfp);
 		return -2;
 	}
 
-	c = fgetc(rfp);
+	unsigned char c = fgetc(rfp);
 	while (!feof(rfp))
 	{
 		if (c == 'S')
 		{
 			if (fgetc(rfp) == '1')
 			{
+				unsigned int num;
 				fscanf(rfp, "%2x%4x", &num, &address);
 				printf("Address : %4x\n", address);
 				for(count = 0; count < (num - 3); count++)
